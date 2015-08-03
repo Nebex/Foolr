@@ -1,7 +1,9 @@
 package com.example.user.foolr;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,15 +19,26 @@ import java.io.OutputStreamWriter;
 public class Foolr extends ActionBarActivity {
     TextView txt;
     EditText passwd;
-    private final static String STORETEXT="storetext.txt";
+    SharedPreferences prefs;
+    String password1;
 
-    @Override
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
+        prefs = this.getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
+        password1 = prefs.getString("preference_file_key", "");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foolr);
         ImageView image1 = (ImageView) findViewById(R.id.imageView);
         image1.setImageResource(R.drawable.img1);
-        boolean firstTime = true;
+        if( password1.length() <= 0){
+
+            Toast.makeText(this, "looks like your first time please put in a new password", Toast.LENGTH_LONG).show();
+
+        }
+
+
         Toast.makeText(this, "looks like your first time please input your password.", Toast.LENGTH_LONG).show();
 
         txt = (TextView)findViewById(R.id.textView);
@@ -35,46 +48,32 @@ public class Foolr extends ActionBarActivity {
         passwd.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event)
             {
-                if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-                   saveClicked();
-                    System.out.println();
-                    if(passwd.getText().toString() == passwordStorage){
-                       // Go to next activity
-                   }
 
-                    return true;
+                if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    if (password1.length() <= 0) {
+//                        /*Log.d("TEST","this happened");*/
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("preference_file_key", passwd.getText().toString());
+                        editor.commit();
+                        // prefs.edit().putString("preference_file_key", passwd.getText().toString()).commit();
+                      String x = prefs.getString("preference_file_key", "");
+                        txt.setText(x);
+
+                    } else {
+                        if (passwd.getText().toString().equals(  prefs.getString("preference_file_key", ""))) {
+
+                        }
+
+                        return true;
+                    }
+                    return false;
                 }
                 return false;
             }
 
     });
     }
-    public void saveClicked() {
 
-        try {
-
-            OutputStreamWriter out= new OutputStreamWriter(openFileOutput(STORETEXT, 0));
-
-            out.write(passwd.getText().toString());
-
-            out.close();
-
-            Toast.makeText(this, "The contents are saved in the file.", Toast.LENGTH_LONG).show();
-
-            System.out.print("test");
-        }
-
-        catch (Throwable t) {
-
-            Toast
-
-                    .makeText(this, "Exception: "+t.toString(), Toast.LENGTH_LONG)
-
-                    .show();
-
-        }
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,8 +97,8 @@ public class Foolr extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setTxt()
+    public void setTxt(String x)
     {
-        txt.setText(passwd.getText());
+        txt.setText(x);
     }
 }

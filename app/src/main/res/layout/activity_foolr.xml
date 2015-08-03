@@ -10,13 +10,12 @@
         android:id="@+id/textView" />
 
     <ImageView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:id="@+id/imageView"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
-        android:src="@drawable/img1"/>
+        android:src="@drawable/img1"
+        android:layout_alignTop="@+id/textView"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -25,8 +24,9 @@
         android:ems="10"
         android:id="@+id/editText"
         android:maxLength="5"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView" />
 
 
 </RelativeLayout>

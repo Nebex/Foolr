@@ -2,5 +2,6 @@
     <string name="app_name">Foolr</string>
     <string name="password">TBD</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings"></string>
+    <string name="preference_file_key"></string>
 </resources>
