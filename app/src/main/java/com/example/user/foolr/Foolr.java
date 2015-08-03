@@ -1,5 +1,6 @@
 package com.example.user.foolr;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -21,8 +22,7 @@ public class Foolr extends ActionBarActivity {
     EditText passwd;
     SharedPreferences prefs;
     String password1;
-
-
+    Intent intent;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,10 @@ public class Foolr extends ActionBarActivity {
         setContentView(R.layout.activity_foolr);
         ImageView image1 = (ImageView) findViewById(R.id.imageView);
         image1.setImageResource(R.drawable.img1);
-        if( password1.length() <= 0){
+
+        intent = new Intent(this, SelectPhoto.class);
+
+        if (password1.length() <= 0) {
 
             Toast.makeText(this, "looks like your first time please put in a new password", Toast.LENGTH_LONG).show();
 
@@ -41,27 +44,28 @@ public class Foolr extends ActionBarActivity {
 
         Toast.makeText(this, "looks like your first time please input your password.", Toast.LENGTH_LONG).show();
 
-        txt = (TextView)findViewById(R.id.textView);
+        txt = (TextView) findViewById(R.id.textView);
         passwd = (EditText) findViewById(R.id.editText);
 
-    final String passwordStorage = "";
+        final String passwordStorage = "";
         passwd.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event)
-            {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                     if (password1.length() <= 0) {
 //                        /*Log.d("TEST","this happened");*/
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("preference_file_key", passwd.getText().toString());
                         editor.commit();
                         // prefs.edit().putString("preference_file_key", passwd.getText().toString()).commit();
-                      String x = prefs.getString("preference_file_key", "");
+                        String x = prefs.getString("preference_file_key", "");
                         txt.setText(x);
+                        startActivity(intent);
+
 
                     } else {
-                        if (passwd.getText().toString().equals(  prefs.getString("preference_file_key", ""))) {
-
+                        if (passwd.getText().toString().equals(prefs.getString("preference_file_key", ""))) {
+                            startActivity(intent);
                         }
 
                         return true;
@@ -70,8 +74,7 @@ public class Foolr extends ActionBarActivity {
                 }
                 return false;
             }
-
-    });
+        });
     }
 
 
@@ -97,8 +100,7 @@ public class Foolr extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setTxt(String x)
-    {
+    public void setTxt(String x) {
         txt.setText(x);
     }
 }
