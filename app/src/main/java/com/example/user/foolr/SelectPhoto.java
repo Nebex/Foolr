@@ -22,12 +22,13 @@ public class SelectPhoto extends ActionBarActivity {
         setContentView(R.layout.activity_select_photo);
         ImageView pic = (ImageView) findViewById(R.id.imgView);
     }
-    pic.setOnClickListener(new Buttton.OnClickListener() {
+  /*  pic.setOnClickListener(new Buttton.OnClickListener() {
         @Override
         public void onClick(View v) {
             startActivity(intent);
         }
     });
+    */
     public void loadImagefromGallery(View view) {
         // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,

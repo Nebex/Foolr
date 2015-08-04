@@ -2,6 +2,7 @@ package com.example.user.foolr;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.OutputStreamWriter;
 
 
@@ -21,13 +23,25 @@ public class Foolr extends ActionBarActivity {
     TextView txt;
     EditText passwd;
     SharedPreferences prefs;
+    SharedPreferences boolFolder;
+    SharedPreferences prefs;
+    SharedPreferences path;
     String password1;
     Intent intent;
 
-
+    public File getAlbumStorageDir(String albumName) {
+        // Get the directory for the user's public pictures directory.
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), albumName);
+        if (!file.mkdirs()) {
+            Log.e("error", "Directory not created");
+        }
+        return file;
+    }
     protected void onCreate(Bundle savedInstanceState) {
         prefs = this.getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
-        password1 = prefs.getString("preference_file_key", "");
+        boolFolder = this.getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
+        getAlbumStorageDir("foolrPics");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foolr);
         ImageView image1 = (ImageView) findViewById(R.id.imageView);
