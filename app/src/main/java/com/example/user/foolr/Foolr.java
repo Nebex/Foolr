@@ -33,7 +33,7 @@ public class Foolr extends ActionBarActivity {
         ImageView image1 = (ImageView) findViewById(R.id.imageView);
         image1.setImageResource(R.drawable.img1);
 
-        intent = new Intent(this, SelectPhoto.class);
+        intent = new Intent(this, Vault.class);
 
         if (password1.length() <= 0) {
 
