@@ -2,6 +2,7 @@ package com.example.user.foolr;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.OutputStreamWriter;
 
 
@@ -22,12 +24,31 @@ public class Foolr extends ActionBarActivity {
     EditText passwd;
     SharedPreferences prefs;
     String password1;
+    String boolFolder;
+    String path;
     Intent intent;
 
+    public File getAlbumStorageDir(String albumName) {
+        // Get the directory for the user's public pictures directory.
 
+                File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), albumName);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("boolFolder","True");
+        editor.putString("path", file.getAbsolutePath());
+        editor.commit();
+        if (!file.mkdirs()) {
+            Log.e("error", "Directory not created");
+        }
+        return file;
+    }
     protected void onCreate(Bundle savedInstanceState) {
         prefs = this.getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
         password1 = prefs.getString("preference_file_key", "");
+        boolFolder = prefs.getString("boolFolder","");
+        if(boolFolder.length() <= 0 ){
+            getAlbumStorageDir("foolrPictures");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foolr);
         ImageView image1 = (ImageView) findViewById(R.id.imageView);
