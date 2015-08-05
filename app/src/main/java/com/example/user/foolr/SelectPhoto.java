@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,13 +22,15 @@ public class SelectPhoto extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_photo);
         ImageView pic = (ImageView) findViewById(R.id.imgView);
+        pic.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent a = new Intent(getApplicationContext(),FullScreen.class);
+                startActivity(a);
+            }
+        });
     }
-    pic.setOnClickListener(new Buttton.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(intent);
-        }
-    });
+    
     public void loadImagefromGallery(View view) {
         // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
