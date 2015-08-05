@@ -30,8 +30,7 @@ public class Foolr extends ActionBarActivity {
 
     public File getAlbumStorageDir(String albumName) {
         // Get the directory for the user's public pictures directory.
-
-                File file = new File(Environment.getExternalStoragePublicDirectory(
+        File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), albumName);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("boolFolder","True");

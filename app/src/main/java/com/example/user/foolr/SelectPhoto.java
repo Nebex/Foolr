@@ -31,6 +31,7 @@ public class SelectPhoto extends ActionBarActivity {
         });
     }
     
+
     public void loadImagefromGallery(View view) {
         // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,

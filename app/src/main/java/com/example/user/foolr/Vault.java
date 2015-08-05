@@ -1,6 +1,7 @@
 package com.example.user.foolr;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,12 +9,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
+
 
 public class Vault extends ActionBarActivity {
 Button add;
 Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+       /* File root = new File( path );
+        File[] list = root.listFiles();
+        for(File f : list){
+            CryptoUtils.decrypt("LaLaLaLaLaLaLaLa", f.getName(), f.getName())
+        }
+*/
         intent = new Intent(this, SelectPhoto.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vault);
@@ -61,6 +71,23 @@ Intent intent;
                 startActivity(d);
             }
         });
+    }
+    void encryptPhotos(){
+
+
+    }
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+        /*
+        File root = new File( path );
+            File[] list = root.listFiles();
+       for(File f : list){
+CryptoUtils.decrypt("LaLaLaLaLaLaLaLa", f.getName(), f.getName())
+       }
+       */
+        finish();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
